@@ -11,8 +11,8 @@ import (
 
 	"github.com/CONCRETE-Project/blockbook/bchain"
 	"github.com/CONCRETE-Project/blockbook/bchain/coins/beetlecoin"
-	"github.com/CONCRETE-Project/blockbook/bchain/coins/concretecoin"
 	"github.com/CONCRETE-Project/blockbook/bchain/coins/btc"
+	"github.com/CONCRETE-Project/blockbook/bchain/coins/concretecoin"
 	"github.com/CONCRETE-Project/blockbook/common"
 	"github.com/juju/errors"
 )
