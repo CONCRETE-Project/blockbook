@@ -23,7 +23,7 @@ RUN cd /opt/go/src && \
     git clone https://github.com/golang/sys.git && \
     git clone https://github.com/golang/crypto.git && \
     git clone https://github.com/golang/sync.git && \
-    git clone https://github.com/golang/tools.git && \
+    git clone https://github.com/golang/tools.git
 
 # install build tools
 RUN go get github.com/gobuffalo/packr/...
