@@ -434,7 +434,7 @@ func (s *PublicServer) parseTemplates() []*template.Template {
 		"setTxToTemplateData":      setTxToTemplateData,
 		"isOwnAddress":             isOwnAddress,
 		"isOwnAddresses":           isOwnAddresses,
-		"isP2CS":					isP2CS,
+		"isP2CS":                   isP2CS,
 	}
 	var createTemplate func(filenames ...string) *template.Template
 	if s.debug {

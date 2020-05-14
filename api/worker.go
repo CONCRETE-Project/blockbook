@@ -167,10 +167,10 @@ func (w *Worker) GetTransactionFromBchainTx(bchainTx *bchain.Tx, height int, spe
 						if err == bchain.ErrTxNotFound {
 							// try to get AddrDesc using coin specific handling and continue processing the tx
 							vin.AddrDesc = w.chainParser.GetAddrDescForUnknownInput(bchainTx, i)
-                            vin.ValueSat = (*Amount)(w.chainParser.GetValueSatForUnknownInput(bchainTx, i))
-                            if vin.ValueSat != nil {
-                                valInSat.Add(&valInSat, (*big.Int)(vin.ValueSat))
-                            }
+							vin.ValueSat = (*Amount)(w.chainParser.GetValueSatForUnknownInput(bchainTx, i))
+							if vin.ValueSat != nil {
+								valInSat.Add(&valInSat, (*big.Int)(vin.ValueSat))
+							}
 							vin.Addresses, vin.Searchable, err = w.chainParser.GetAddressesFromAddrDesc(vin.AddrDesc)
 							if err != nil {
 								glog.Warning("GetAddressesFromAddrDesc tx ", bchainVin.Txid, ", addrDesc ", vin.AddrDesc, ": ", err)

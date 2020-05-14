@@ -564,6 +564,26 @@ func (ab *AddrBalance) ReceivedSat() *big.Int {
 	return &r
 }
 
+// Check if addressBalance has an utxo
+func (ab *AddrBalance) hasUtxo(btxID []byte, vout int32) bool {
+	if len(ab.utxosMap) > 0 {
+		if i, ok := ab.utxosMap[string(btxID)]; ok {
+			if ab.Utxos[i].Vout == vout {
+				return true
+			}
+		}
+		return false
+	} else {
+		for _, utxo := range ab.Utxos {
+			if (string(utxo.BtxID) == string(btxID)) &&
+				(utxo.Vout == vout) {
+				return true
+			}
+		}
+		return false
+	}
+}
+
 // addUtxo
 func (ab *AddrBalance) addUtxo(u *Utxo) {
 	ab.Utxos = append(ab.Utxos, *u)
@@ -724,39 +744,45 @@ func (d *RocksDB) processAddressesBitcoinType(block *bchain.Block, addresses add
 				continue
 			}
 			tao.AddrDesc = addrDesc
-			if d.chainParser.IsAddrDescIndexable(addrDesc) {
-				oad := addrDesc
-				if isPayToColdStake(addrDesc) {
-					ownerDesc, e := getOwnerFromP2CS(addrDesc)
-					if e == nil {
-						oad = ownerDesc
-					}
+			vOutputAddrDescriptors := []bchain.AddressDescriptor{addrDesc}
+			if isPayToColdStake(addrDesc) {
+				ownerDesc, e := getOwnerFromP2CS(addrDesc)
+				if e == nil {
+					vOutputAddrDescriptors = append(vOutputAddrDescriptors, ownerDesc)
 				}
-				strAddrDesc := string(oad)
-				balance, e := balances[strAddrDesc]
-				if !e {
-					balance, err = d.GetAddrDescBalance(oad, addressBalanceDetailUTXOIndexed)
-					if err != nil {
-						return err
+			}
+			for _, oad := range vOutputAddrDescriptors {
+				if d.chainParser.IsAddrDescIndexable(oad) {
+					strAddrDesc := string(oad)
+					balance, e := balances[strAddrDesc]
+					if !e {
+						balance, err = d.GetAddrDescBalance(oad, addressBalanceDetailUTXOIndexed)
+						if err != nil {
+							return err
+						}
+						if balance == nil {
+							balance = &AddrBalance{}
+						}
+						balances[strAddrDesc] = balance
+						d.cbs.balancesMiss++
+					} else {
+						d.cbs.balancesHit++
 					}
-					if balance == nil {
-						balance = &AddrBalance{}
+					// check for duplicates
+					if balance.hasUtxo(btxID, int32(i)) {
+						continue
 					}
-					balances[strAddrDesc] = balance
-					d.cbs.balancesMiss++
-				} else {
-					d.cbs.balancesHit++
-				}
-				balance.BalanceSat.Add(&balance.BalanceSat, &output.ValueSat)
-				balance.addUtxo(&Utxo{
-					BtxID:    btxID,
-					Vout:     int32(i),
-					Height:   block.Height,
-					ValueSat: output.ValueSat,
-				})
-				counted := addToAddressesMap(addresses, strAddrDesc, btxID, int32(i))
-				if !counted {
-					balance.Txs++
+					balance.BalanceSat.Add(&balance.BalanceSat, &output.ValueSat)
+					balance.addUtxo(&Utxo{
+						BtxID:    btxID,
+						Vout:     int32(i),
+						Height:   block.Height,
+						ValueSat: output.ValueSat,
+					})
+					counted := addToAddressesMap(addresses, strAddrDesc, btxID, int32(i))
+					if !counted {
+						balance.Txs++
+					}
 				}
 			}
 		}
@@ -788,6 +814,7 @@ func (d *RocksDB) processAddressesBitcoinType(block *bchain.Block, addresses add
 				if ita == nil {
 					// allow parser to process unknown input, some coins may implement special handling, default is to log warning
 					tai.AddrDesc = d.chainParser.GetAddrDescForUnknownInput(tx, i)
+					tai.ValueSat = *d.chainParser.GetValueSatForUnknownInput(tx, i)
 					continue
 				}
 				txAddressesMap[stxID] = ita
@@ -814,39 +841,41 @@ func (d *RocksDB) processAddressesBitcoinType(block *bchain.Block, addresses add
 				}
 				continue
 			}
-			if d.chainParser.IsAddrDescIndexable(spentOutput.AddrDesc) {
-				soad := spentOutput.AddrDesc
-				if isPayToColdStake(spentOutput.AddrDesc) {
-					ownerDesc, e := getOwnerFromP2CS(spentOutput.AddrDesc)
-					if e == nil {
-						soad = ownerDesc
+			vOutputAddrDescriptors := []bchain.AddressDescriptor{spentOutput.AddrDesc}
+			if isPayToColdStake(spentOutput.AddrDesc) {
+				ownerDesc, e := getOwnerFromP2CS(spentOutput.AddrDesc)
+				if e == nil {
+					vOutputAddrDescriptors = append(vOutputAddrDescriptors, ownerDesc)
+				}
+			}
+			for _, soad := range vOutputAddrDescriptors {
+				if d.chainParser.IsAddrDescIndexable(soad) {
+					strAddrDesc := string(soad)
+					balance, e := balances[strAddrDesc]
+					if !e {
+						balance, err = d.GetAddrDescBalance(soad, addressBalanceDetailUTXOIndexed)
+						if err != nil {
+							return err
+						}
+						if balance == nil {
+							balance = &AddrBalance{}
+						}
+						balances[strAddrDesc] = balance
+						d.cbs.balancesMiss++
+					} else {
+						d.cbs.balancesHit++
 					}
-				}
-				strAddrDesc := string(soad)
-				balance, e := balances[strAddrDesc]
-				if !e {
-					balance, err = d.GetAddrDescBalance(soad, addressBalanceDetailUTXOIndexed)
-					if err != nil {
-						return err
+					counted := addToAddressesMap(addresses, strAddrDesc, spendingTxid, ^int32(i))
+					if !counted {
+						balance.Txs++
 					}
-					if balance == nil {
-						balance = &AddrBalance{}
+					balance.BalanceSat.Sub(&balance.BalanceSat, &spentOutput.ValueSat)
+					balance.markUtxoAsSpent(btxID, int32(input.Vout))
+					if balance.BalanceSat.Sign() < 0 {
+						d.resetValueSatToZero(&balance.BalanceSat, soad, "balance")
 					}
-					balances[strAddrDesc] = balance
-					d.cbs.balancesMiss++
-				} else {
-					d.cbs.balancesHit++
+					balance.SentSat.Add(&balance.SentSat, &spentOutput.ValueSat)
 				}
-				counted := addToAddressesMap(addresses, strAddrDesc, spendingTxid, ^int32(i))
-				if !counted {
-					balance.Txs++
-				}
-				balance.BalanceSat.Sub(&balance.BalanceSat, &spentOutput.ValueSat)
-				balance.markUtxoAsSpent(btxID, int32(input.Vout))
-				if balance.BalanceSat.Sign() < 0 {
-					d.resetValueSatToZero(&balance.BalanceSat, soad, "balance")
-				}
-				balance.SentSat.Add(&balance.SentSat, &spentOutput.ValueSat)
 			}
 		}
 	}
