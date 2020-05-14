@@ -7,7 +7,7 @@ ENV GOPATH=/go
 ENV PATH=$PATH:$GOPATH/bin
 ENV CGO_CFLAGS="-I/opt/rocksdb/include"
 ENV CGO_LDFLAGS="-L/opt/rocksdb -lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy -llz4"
-
+ENV HTTP_PROXY=$http_proxy
 # install and configure go
 RUN cd /opt && wget https://storage.googleapis.com/golang/$GOLANG_VERSION.tar.gz && \
     tar xf $GOLANG_VERSION.tar.gz
@@ -17,8 +17,8 @@ RUN echo -n "GO version: " && go version
 RUN echo -n "GOPATH: " && echo $GOPATH
 
 # install build tools
-RUN echo $http_proxy
-RUN $http_proxy go get github.com/gobuffalo/packr/...
+RUN echo $HTTP_PROXY
+RUN $HTTP_PROXY go get github.com/gobuffalo/packr/...
 
 # download pre-loaded depencencies
 RUN \
