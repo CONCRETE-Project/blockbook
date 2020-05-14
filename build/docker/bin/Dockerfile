@@ -2,7 +2,7 @@
 
 FROM kindynos/rocksdb:latest
 
-ENV GOLANG_VERSION=go1.13.8.linux-amd64
+ENV GOLANG_VERSION=go1.14.2.linux-amd64
 ENV GOPATH=/go
 ENV PATH=$PATH:$GOPATH/bin
 ENV CGO_CFLAGS="-I/opt/rocksdb/include"
@@ -17,7 +17,7 @@ RUN echo -n "GO version: " && go version
 RUN echo -n "GOPATH: " && echo $GOPATH
 
 # install build tools
-RUN go get github.com/gobuffalo/packr/v2/...
+RUN go get github.com/gobuffalo/packr/...
 
 # download pre-loaded depencencies
 RUN \
