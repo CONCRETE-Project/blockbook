@@ -17,8 +17,8 @@ RUN echo -n "GO version: " && go version
 RUN echo -n "GOPATH: " && echo $GOPATH
 
 # install build tools
-RUN echo ${HTTP_PROXY}
-RUN ${HTTP_PROXY} go get github.com/gobuffalo/packr/...
+RUN echo $http_proxy
+RUN $http_proxy go get github.com/gobuffalo/packr/...
 
 # download pre-loaded depencencies
 RUN \
