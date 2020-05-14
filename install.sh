@@ -46,7 +46,7 @@ echo "${color}Building Blockbook....${reset}"
 
 sleep 1
 
-git clone https://github.com/grupokindynos/coins-explorer.git && cd coins-explorer && make all-${ticker}
+git clone https://github.com/CONCRETE-Project/blockbook.git && cd coins-explorer && make all-${ticker}
 
 apt install /root/coins-explorer/build/*.deb -y
 

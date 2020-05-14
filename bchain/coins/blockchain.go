@@ -9,10 +9,11 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/grupokindynos/coins-explorer/bchain"
-	"github.com/grupokindynos/coins-explorer/bchain/coins/btc"
-	"github.com/grupokindynos/coins-explorer/bchain/coins/eth"
-	"github.com/grupokindynos/coins-explorer/bchain/coins/polis"
+	"github.com/CONCRETE-Project/blockbook/bchain"
+	"github.com/CONCRETE-Project/blockbook/bchain/coins/beetlecoin"
+	"github.com/CONCRETE-Project/blockbook/bchain/coins/btc"
+	"github.com/CONCRETE-Project/blockbook/bchain/coins/polis"
+	"github.com/CONCRETE-Project/blockbook/common"
 	"github.com/juju/errors"
 )
 
@@ -24,6 +25,9 @@ var BlockChainFactories = make(map[string]blockChainFactory)
 func init() {
 	BlockChainFactories["Bitcoin"] = btc.NewBitcoinRPC
 	BlockChainFactories["Polis"] = polis.NewPolisRPC
+	BlockChainFactories["ConcreteCoin"] = beetlecoin.NewBeetleCoinRPC
+	BlockChainFactories["BeetleCoin"] = polis.NewPolisRPC
+
 }
 
 // GetCoinNameFromConfig gets coin name and coin shortcut from config file

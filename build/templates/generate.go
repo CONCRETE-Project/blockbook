@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/grupokindynos/coins-explorer/build/tools"
 	"os"
 	"path/filepath"
 	"strings"
+
+	build "github.com/CONCRETE-Project/blockbook/build/tools"
 )
 
 const (

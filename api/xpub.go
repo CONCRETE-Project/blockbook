@@ -2,12 +2,13 @@ package api
 
 import (
 	"fmt"
-	"github.com/grupokindynos/coins-explorer/bchain"
-	"github.com/grupokindynos/coins-explorer/db"
 	"math/big"
 	"sort"
 	"sync"
 	"time"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
+	"github.com/CONCRETE-Project/blockbook/db"
 
 	"github.com/golang/glog"
 	"github.com/juju/errors"

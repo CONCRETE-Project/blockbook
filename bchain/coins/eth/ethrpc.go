@@ -4,11 +4,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/grupokindynos/coins-explorer/bchain"
 	"math/big"
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
 
 	ethereum "github.com/ethereum/go-ethereum"
 	ethcommon "github.com/ethereum/go-ethereum/common"

@@ -4,12 +4,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/grupokindynos/coins-explorer/bchain"
 	"math"
 	"net/http"
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
 
 	"github.com/golang/glog"
 

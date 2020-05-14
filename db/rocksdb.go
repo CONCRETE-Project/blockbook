@@ -6,8 +6,6 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"github.com/grupokindynos/coins-explorer/bchain"
-	"github.com/grupokindynos/coins-explorer/common"
 	"math/big"
 	"os"
 	"path/filepath"
@@ -15,6 +13,9 @@ import (
 	"strconv"
 	"time"
 	"unsafe"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
+	"github.com/CONCRETE-Project/blockbook/common"
 
 	vlq "github.com/bsm/go-vlq"
 	"github.com/golang/glog"

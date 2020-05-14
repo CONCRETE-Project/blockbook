@@ -1,8 +1,9 @@
 package db
 
 import (
-	"github.com/grupokindynos/coins-explorer/bchain"
 	"time"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
 
 	"github.com/golang/glog"
 	"github.com/tecbot/gorocksdb"

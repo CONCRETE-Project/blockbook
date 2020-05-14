@@ -1,8 +1,8 @@
 package polis
 
 import (
-	"github.com/grupokindynos/coins-explorer/bchain"
-	"github.com/grupokindynos/coins-explorer/bchain/coins/btc"
+	"github.com/CONCRETE-Project/blockbook/bchain"
+	"github.com/CONCRETE-Project/blockbook/bchain/coins/btc"
 
 	"github.com/martinboehm/btcd/wire"
 	"github.com/martinboehm/btcutil/chaincfg"
@@ -24,13 +24,13 @@ func init() {
 	MainNetParams.ScriptHashAddrID = []byte{56}
 }
 
-type PolisParser struct {
+type ConcreteCoinParser struct {
 	*btc.BitcoinParser
 	baseparser *bchain.BaseParser
 }
 
-func NewPolisParser(params *chaincfg.Params, c *btc.Configuration) *PolisParser {
-	return &PolisParser{BitcoinParser: btc.NewBitcoinParser(params, c), baseparser: &bchain.BaseParser{}}
+func NewConcreteCoinParser(params *chaincfg.Params, c *btc.Configuration) *ConcreteCoinParser {
+	return &ConcreteCoinParser{BitcoinParser: btc.NewBitcoinParser(params, c), baseparser: &bchain.BaseParser{}}
 }
 
 func GetChainParams(chain string) *chaincfg.Params {
@@ -43,10 +43,10 @@ func GetChainParams(chain string) *chaincfg.Params {
 	return &MainNetParams
 }
 
-func (p *PolisParser) PackTx(tx *bchain.Tx, height uint32, blockTime int64) ([]byte, error) {
+func (p *ConcreteCoinParser) PackTx(tx *bchain.Tx, height uint32, blockTime int64) ([]byte, error) {
 	return p.baseparser.PackTx(tx, height, blockTime)
 }
 
-func (p *PolisParser) UnpackTx(buf []byte) (*bchain.Tx, uint32, error) {
+func (p *ConcreteCoinParser) UnpackTx(buf []byte) (*bchain.Tx, uint32, error) {
 	return p.baseparser.UnpackTx(buf)
 }

@@ -4,10 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/grupokindynos/coins-explorer/bchain"
-	"github.com/grupokindynos/coins-explorer/bchain/coins/eth"
-	"github.com/grupokindynos/coins-explorer/common"
-	"github.com/grupokindynos/coins-explorer/db"
 	"math"
 	"math/big"
 	"os"
@@ -15,6 +11,11 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
+	"github.com/CONCRETE-Project/blockbook/bchain/coins/eth"
+	"github.com/CONCRETE-Project/blockbook/common"
+	"github.com/CONCRETE-Project/blockbook/db"
 
 	"github.com/golang/glog"
 	"github.com/juju/errors"

@@ -6,11 +6,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/grupokindynos/coins-explorer/bchain"
-	"github.com/grupokindynos/coins-explorer/bchain/coins"
-	build "github.com/grupokindynos/coins-explorer/build/tools"
-	"github.com/grupokindynos/coins-explorer/tests/rpc"
-	"github.com/grupokindynos/coins-explorer/tests/sync"
 	"io/ioutil"
 	"net"
 	"os"
@@ -20,6 +15,12 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
+	"github.com/CONCRETE-Project/blockbook/bchain/coins"
+	build "github.com/CONCRETE-Project/blockbook/build/tools"
+	"github.com/CONCRETE-Project/blockbook/tests/rpc"
+	"github.com/CONCRETE-Project/blockbook/tests/sync"
 
 	"github.com/martinboehm/btcutil/chaincfg"
 )

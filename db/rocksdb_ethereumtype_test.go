@@ -4,10 +4,11 @@ package db
 
 import (
 	"encoding/hex"
-	"github.com/grupokindynos/coins-explorer/bchain/coins/eth"
-	"github.com/grupokindynos/coins-explorer/tests/dbtestdata"
 	"reflect"
 	"testing"
+
+	"github.com/CONCRETE-Project/blockbook/bchain/coins/eth"
+	"github.com/CONCRETE-Project/blockbook/tests/dbtestdata"
 
 	"github.com/juju/errors"
 )

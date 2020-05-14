@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"context"
 	"encoding/hex"
-	"github.com/grupokindynos/coins-explorer/bchain"
 	"math/big"
 	"strings"
 	"sync"
 	"unicode/utf8"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
 
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/golang/glog"

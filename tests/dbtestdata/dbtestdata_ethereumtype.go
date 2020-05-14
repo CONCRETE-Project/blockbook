@@ -2,7 +2,8 @@ package dbtestdata
 
 import (
 	"encoding/hex"
-	"github.com/grupokindynos/coins-explorer/bchain"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
 )
 
 // Addresses

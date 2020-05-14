@@ -2,16 +2,17 @@ package server
 
 import (
 	"encoding/json"
-	"github.com/grupokindynos/coins-explorer/api"
-	"github.com/grupokindynos/coins-explorer/bchain"
-	"github.com/grupokindynos/coins-explorer/common"
-	"github.com/grupokindynos/coins-explorer/db"
 	"math/big"
 	"net/http"
 	"runtime/debug"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/CONCRETE-Project/blockbook/api"
+	"github.com/CONCRETE-Project/blockbook/bchain"
+	"github.com/CONCRETE-Project/blockbook/common"
+	"github.com/CONCRETE-Project/blockbook/db"
 
 	"github.com/golang/glog"
 	"github.com/juju/errors"

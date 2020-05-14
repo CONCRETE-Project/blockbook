@@ -4,11 +4,6 @@ package server
 
 import (
 	"encoding/json"
-	"github.com/grupokindynos/coins-explorer/bchain"
-	"github.com/grupokindynos/coins-explorer/bchain/coins/btc"
-	"github.com/grupokindynos/coins-explorer/common"
-	"github.com/grupokindynos/coins-explorer/db"
-	"github.com/grupokindynos/coins-explorer/tests/dbtestdata"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -18,6 +13,12 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
+	"github.com/CONCRETE-Project/blockbook/bchain/coins/btc"
+	"github.com/CONCRETE-Project/blockbook/common"
+	"github.com/CONCRETE-Project/blockbook/db"
+	"github.com/CONCRETE-Project/blockbook/tests/dbtestdata"
 
 	"github.com/golang/glog"
 	"github.com/gorilla/websocket"

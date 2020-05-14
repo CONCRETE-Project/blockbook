@@ -3,12 +3,13 @@ package api
 import (
 	"encoding/json"
 	"errors"
-	"github.com/grupokindynos/coins-explorer/bchain"
-	"github.com/grupokindynos/coins-explorer/common"
-	"github.com/grupokindynos/coins-explorer/db"
 	"math/big"
 	"sort"
 	"time"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
+	"github.com/CONCRETE-Project/blockbook/common"
+	"github.com/CONCRETE-Project/blockbook/db"
 )
 
 const maxUint32 = ^uint32(0)

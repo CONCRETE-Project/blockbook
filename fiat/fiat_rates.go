@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/grupokindynos/coins-explorer/db"
 	"reflect"
 	"time"
+
+	"github.com/CONCRETE-Project/blockbook/db"
 
 	"github.com/golang/glog"
 )

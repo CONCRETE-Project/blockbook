@@ -2,9 +2,10 @@ package eth
 
 import (
 	"encoding/hex"
-	"github.com/grupokindynos/coins-explorer/bchain"
 	"math/big"
 	"strconv"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/golang/protobuf/proto"

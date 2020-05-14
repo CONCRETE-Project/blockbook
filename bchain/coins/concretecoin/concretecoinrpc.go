@@ -2,24 +2,23 @@ package polis
 
 import (
 	"encoding/json"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
+	"github.com/CONCRETE-Project/blockbook/bchain/coins/btc"
 	"github.com/golang/glog"
-	"github.com/grupokindynos/coins-explorer/bchain"
-	"github.com/grupokindynos/coins-explorer/bchain/coins/btc"
 	"github.com/juju/errors"
 )
 
-type PolisRPC struct {
+type ConcreteCoinRPC struct {
 	*btc.BitcoinRPC
 }
 
-const firstBlockWithSpecialTransactions = 454000
-
-func NewPolisRPC(config json.RawMessage, pushHandler func(bchain.NotificationType)) (bchain.BlockChain, error) {
+func NewConcreteCoinRPC(config json.RawMessage, pushHandler func(bchain.NotificationType)) (bchain.BlockChain, error) {
 	b, err := btc.NewBitcoinRPC(config, pushHandler)
 	if err != nil {
 		return nil, err
 	}
-	s := &PolisRPC{
+	s := &ConcreteCoinRPC{
 		b.(*btc.BitcoinRPC),
 	}
 	s.RPCMarshaler = btc.JSONMarshalerV1{}
@@ -27,22 +26,22 @@ func NewPolisRPC(config json.RawMessage, pushHandler func(bchain.NotificationTyp
 	return s, nil
 }
 
-func (b *PolisRPC) Initialize() error {
+func (b *ConcreteCoinRPC) Initialize() error {
 	ci, err := b.GetChainInfo()
 	if err != nil {
 		return err
 	}
 	chainName := ci.Chain
 	params := GetChainParams(chainName)
-	b.Parser = NewPolisParser(params, b.ChainConfig)
+	b.Parser = NewConcreteCoinParser(params, b.ChainConfig)
 	b.Testnet = false
 	b.Network = "livenet"
 	glog.Info("rpc: block chain ", params.Name)
 	return nil
 }
 
-func (b *PolisRPC) GetBlock(hash string, height uint32) (*bchain.Block, error) {
-	if hash == "" && height < firstBlockWithSpecialTransactions {
+func (b *ConcreteCoinRPC) GetBlock(hash string, height uint32) (*bchain.Block, error) {
+	if hash == "" {
 		return b.BitcoinRPC.GetBlock(hash, height)
 	}
 	var err error
@@ -83,6 +82,6 @@ func (b *PolisRPC) GetBlock(hash string, height uint32) (*bchain.Block, error) {
 	return block, nil
 }
 
-func (b *PolisRPC) GetTransactionForMempool(txid string) (*bchain.Tx, error) {
+func (b *ConcreteCoinRPC) GetTransactionForMempool(txid string) (*bchain.Tx, error) {
 	return b.GetTransaction(txid)
 }

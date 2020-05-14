@@ -4,9 +4,10 @@ import (
 	"bytes"
 	"encoding/binary"
 	"encoding/hex"
-	"github.com/grupokindynos/coins-explorer/bchain"
 	"math/big"
 	"strconv"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
 
 	vlq "github.com/bsm/go-vlq"
 	"github.com/juju/errors"

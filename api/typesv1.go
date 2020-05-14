@@ -1,8 +1,9 @@
 package api
 
 import (
-	"github.com/grupokindynos/coins-explorer/bchain"
 	"math/big"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
 )
 
 // ScriptSigV1 is used for legacy api v1

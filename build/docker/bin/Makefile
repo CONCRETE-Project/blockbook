@@ -3,7 +3,7 @@ UPDATE_VENDOR ?= 1
 VERSION ?= devel
 GITCOMMIT = $(shell cd /src && git describe --always --dirty)
 BUILDTIME = $(shell date --iso-8601=seconds)
-LDFLAGS := -X github.com/grupokindynos/coins-explorer/common.version=$(VERSION) -X github.com/grupokindynos/coins-explorer/common.gitcommit=$(GITCOMMIT) -X github.com/grupokindynos/coins-explorer/common.buildtime=$(BUILDTIME)
+LDFLAGS := -X github.com/CONCRETE-Project/blockbook/common.version=$(VERSION) -X github.com/CONCRETE-Project/blockbook/common.gitcommit=$(GITCOMMIT) -X github.com/CONCRETE-Project/blockbook/common.buildtime=$(BUILDTIME)
 BLOCKBOOK_BASE := $(GOPATH)/src/github.com/grupokindynos
 BLOCKBOOK_SRC := $(BLOCKBOOK_BASE)/coins-explorer
 ARGS ?=
@@ -25,13 +25,13 @@ tools:
 	chown $(PACKAGER) /out/{ldb,sst_dump}
 
 test: prepare-sources generate-data
-	cd $(BLOCKBOOK_SRC) && go test -tags unittest `go list ./... | grep -vP '^github.com/grupokindynos/coins-explorer/(contrib|tests)'` $(ARGS)
+	cd $(BLOCKBOOK_SRC) && go test -tags unittest `go list ./... | grep -vP '^github.com/CONCRETE-Project/blockbook/(contrib|tests)'` $(ARGS)
 
 test-integration: prepare-sources generate-data
 	cd $(BLOCKBOOK_SRC) && go test -tags integration `go list blockbook/tests/...` $(ARGS)
 
 test-all: prepare-sources generate-data
-	cd $(BLOCKBOOK_SRC) && go test -tags 'unittest integration' `go list ./... | grep -v '^github.com/grupokindynos/coins-explorer/contrib'` $(ARGS)
+	cd $(BLOCKBOOK_SRC) && go test -tags 'unittest integration' `go list ./... | grep -v '^github.com/CONCRETE-Project/blockbook/contrib'` $(ARGS)
 
 prepare-sources:
 	@ [ -n "`ls /src 2> /dev/null`" ] || (echo "/src doesn't exist or is empty" 1>&2 && exit 1)

@@ -5,13 +5,14 @@ package sync
 import (
 	"encoding/json"
 	"errors"
-	"github.com/grupokindynos/coins-explorer/bchain"
-	"github.com/grupokindynos/coins-explorer/common"
-	"github.com/grupokindynos/coins-explorer/db"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
+	"github.com/CONCRETE-Project/blockbook/common"
+	"github.com/CONCRETE-Project/blockbook/db"
 )
 
 var testMap = map[string]func(t *testing.T, th *TestHandler){

@@ -4,8 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"github.com/grupokindynos/coins-explorer/bchain"
 	"math/big"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
 )
 
 type fakeBlockChain struct {

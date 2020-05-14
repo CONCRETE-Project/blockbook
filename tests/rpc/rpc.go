@@ -4,13 +4,14 @@ package rpc
 
 import (
 	"encoding/json"
-	"github.com/grupokindynos/coins-explorer/bchain"
 	"io/ioutil"
 	"path/filepath"
 	"reflect"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
 
 	mapset "github.com/deckarep/golang-set"
 	"github.com/juju/errors"

@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	build "github.com/grupokindynos/coins-explorer/build/tools"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -13,6 +12,8 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+
+	build "github.com/CONCRETE-Project/blockbook/build/tools"
 )
 
 const (

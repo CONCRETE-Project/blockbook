@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/hex"
 	"encoding/json"
-	"github.com/grupokindynos/coins-explorer/bchain"
 	"io"
 	"io/ioutil"
 	"math/big"
@@ -13,6 +12,8 @@ import (
 	"net/http"
 	"runtime/debug"
 	"time"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
 
 	"github.com/golang/glog"
 	"github.com/juju/errors"

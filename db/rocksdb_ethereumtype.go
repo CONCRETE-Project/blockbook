@@ -3,8 +3,9 @@ package db
 import (
 	"bytes"
 	"encoding/hex"
-	"github.com/grupokindynos/coins-explorer/bchain"
-	"github.com/grupokindynos/coins-explorer/bchain/coins/eth"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
+	"github.com/CONCRETE-Project/blockbook/bchain/coins/eth"
 
 	vlq "github.com/bsm/go-vlq"
 	"github.com/golang/glog"

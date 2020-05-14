@@ -3,7 +3,7 @@
 package db
 
 import (
-	"github.com/grupokindynos/coins-explorer/bchain"
+	"github.com/CONCRETE-Project/blockbook/bchain"
 )
 
 func SetBlockChain(w *SyncWorker, chain bchain.BlockChain) {

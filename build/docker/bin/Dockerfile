@@ -25,7 +25,7 @@ RUN \
     trap cleanup EXIT && \
     mkdir -p $GOPATH/src/github.com/grupokindynos && \
     cd $GOPATH/src/github.com/grupokindynos && \
-    git clone https://github.com/grupokindynos/coins-explorer.git && \
+    git clone https://github.com/CONCRETE-Project/blockbook.git && \
     cd coins-explorer && \
     env GO111MODULE=on go mod vendor && \
     cp -r vendor /build/vendor

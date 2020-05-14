@@ -1,12 +1,13 @@
 package db
 
 import (
-	"github.com/grupokindynos/coins-explorer/bchain"
-	"github.com/grupokindynos/coins-explorer/common"
 	"os"
 	"sync"
 	"sync/atomic"
 	"time"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
+	"github.com/CONCRETE-Project/blockbook/common"
 
 	"github.com/golang/glog"
 	"github.com/juju/errors"

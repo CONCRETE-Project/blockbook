@@ -3,11 +3,12 @@ package fiat
 import (
 	"encoding/json"
 	"errors"
-	"github.com/grupokindynos/coins-explorer/db"
 	"io/ioutil"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/CONCRETE-Project/blockbook/db"
 
 	"github.com/golang/glog"
 )

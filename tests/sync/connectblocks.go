@@ -3,13 +3,14 @@
 package sync
 
 import (
-	"github.com/grupokindynos/coins-explorer/bchain"
-	"github.com/grupokindynos/coins-explorer/db"
 	"math/big"
 	"os"
 	"reflect"
 	"strings"
 	"testing"
+
+	"github.com/CONCRETE-Project/blockbook/bchain"
+	"github.com/CONCRETE-Project/blockbook/db"
 )
 
 func testConnectBlocks(t *testing.T, h *TestHandler) {
