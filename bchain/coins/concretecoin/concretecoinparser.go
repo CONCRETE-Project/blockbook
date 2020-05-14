@@ -60,7 +60,7 @@ type ConcreteCoinParser struct {
 	BitcoinOutputScriptToAddressesFunc btc.OutputScriptToAddressesFunc
 }
 
-func NewConcreteCoinParserr(params *chaincfg.Params, c *btc.Configuration) *ConcreteCoinParser {
+func NewConcreteCoinParser(params *chaincfg.Params, c *btc.Configuration) *ConcreteCoinParser {
 	p := &ConcreteCoinParser{
 		BitcoinParser: btc.NewBitcoinParser(params, c),
 		baseparser:    &bchain.BaseParser{},
