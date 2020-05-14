@@ -17,7 +17,7 @@ RUN echo -n "GO version: " && go version
 RUN echo -n "GOPATH: " && echo $GOPATH
 
 # manually download deps
-RUN cd $GOPATH/go/src && \
+RUN cd $GOPATH/src && \
     mkdir -p golang.org/x && \
     cd golang.org/x && \
     git clone https://github.com/golang/sys.git
