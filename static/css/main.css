@@ -326,3 +326,9 @@ table.data-table table.data-table th {
 .key {
     color: #333;
 }
+
+.tx-descr {
+    color: #212121!important;
+    font-style: italic;
+    font-size: 11px;
+  }

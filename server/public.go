@@ -434,6 +434,7 @@ func (s *PublicServer) parseTemplates() []*template.Template {
 		"setTxToTemplateData":      setTxToTemplateData,
 		"isOwnAddress":             isOwnAddress,
 		"isOwnAddresses":           isOwnAddresses,
+		"isP2CS":					isP2CS,
 	}
 	var createTemplate func(filenames ...string) *template.Template
 	if s.debug {
@@ -1239,4 +1240,12 @@ func (s *PublicServer) apiEstimateFee(r *http.Request, apiVersion int) (interfac
 		}
 	}
 	return nil, api.NewAPIError("Missing parameter 'number of blocks'", true)
+}
+
+func isP2CS(addrs []string) bool {
+	if len(addrs) != 2 {
+		return false
+	}
+	// staker and owner address have different base58 prefix
+	return string(addrs[0][0]) != string(addrs[1][0])
 }
