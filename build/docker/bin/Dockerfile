@@ -20,7 +20,10 @@ RUN echo -n "GOPATH: " && echo $GOPATH
 RUN cd /opt/go/src && \
     mkdir -p golang.org/x && \
     cd golang.org/x && \
-    git clone https://github.com/golang/sys.git
+    git clone https://github.com/golang/sys.git && \
+    git clone https://github.com/golang/crypto.git && \
+    git clone https://github.com/golang/sync.git && \
+    git clone https://github.com/golang/tools.git && \
 
 # install build tools
 RUN go get github.com/gobuffalo/packr/...
