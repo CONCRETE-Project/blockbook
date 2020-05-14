@@ -50,7 +50,6 @@
     "additional_params": "-dbcache=0 -workers=1",
     "block_chain": {
       "parse": true,
-      "subversion": "/ConcreteCoin:/",
       "mempool_workers": 8,
       "mempool_sub_workers": 2,
       "block_addresses_to_keep": 300,
