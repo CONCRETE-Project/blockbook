@@ -109,6 +109,7 @@ type Vin struct {
 	N         int                      `json:"n"`
 	AddrDesc  bchain.AddressDescriptor `json:"-"`
 	Addresses []string                 `json:"addresses,omitempty"`
+	Searchable bool                     `json:"-"`
 	IsAddress bool                     `json:"isAddress"`
 	ValueSat  *Amount                  `json:"value,omitempty"`
 	Hex       string                   `json:"hex,omitempty"`
