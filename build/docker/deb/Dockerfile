@@ -2,10 +2,9 @@
 
 FROM blockbook-build:latest
 
-RUN echo "deb mirror://mirrors.tencentyun.com xenial main restricted universe multiverse" > /etc/apt/sources.list && \
-    echo "deb mirror://mirrors.tencentyun.com xenial-updates main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb mirror://mirrors.tencentyun.com xenial-security main restricted universe multiverse" >> /etc/apt/sources.list && \
-    DEBIAN_FRONTEND=noninteractive apt-get update
+RUN add-apt-repository "deb http://mirrors.tencentyun.com/ubuntu/ xenial main restricted universe multiverse"
+RUN add-apt-repository "deb http://mirrors.tencentyun.com/ubuntu/ xenial-security main restricted universe multiverse"
+RUN add-apt-repository "deb http://mirrors.tencentyun.com/ubuntu/ xenial-updates main restricted universe multiverse"
 
 RUN apt-get update && \
     apt-get upgrade -y && \
