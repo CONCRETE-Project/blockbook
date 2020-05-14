@@ -27,7 +27,7 @@
     "verification_type": "sha256",
     "verification_source": "d61281a49ffc0def215dccb38522a5116b487519be94dd56163a102c3f3dd2af",
     "extract_command": "tar -C backend -xf",
-    "exclude_files":   [],
+    "exclude_files":   ["beetlecoin-qt"],
     "exec_command_template": "{{.Env.BackendInstallPath}}/{{.Coin.Alias}}/beetlecoind -datadir={{.Env.BackendDataPath}}/{{.Coin.Alias}}/backend -conf={{.Env.BackendInstallPath}}/{{.Coin.Alias}}/{{.Coin.Alias}}.conf -pid=/run/{{.Coin.Alias}}/{{.Coin.Alias}}.pid",
     "logrotate_files_template": "{{.Env.BackendDataPath}}/{{.Coin.Alias}}/backend/*.log",
     "postinst_script_template": "",
