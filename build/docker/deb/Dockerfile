@@ -4,11 +4,11 @@ FROM blockbook-build:latest
 
 RUN cp /etc/apt/sources.list /etc/apt/sources.list.backup && \
     touch /etc/apt/sources.list && \
-    echo "deb http://mirrors.tencentyun.com/ubuntu/ xenial main restricted universe multiverse" && \
-    echo "deb http://mirrors.tencentyun.com/ubuntu/ xenial-security main restricted universe multiverse" && \
-    echo "deb http://mirrors.tencentyun.com/ubuntu/ xenial-updates main restricted universe multiverse" && \
-    echo "deb-src http://mirrors.tencentyun.com/ubuntu/ xenial main restricted universe multiverse" && \
-    echo "deb-src http://mirrors.tencentyun.com/ubuntu/ xenial-security main restricted universe multiverse" 
+    echo "deb http://mirrors.tencentyun.com/ubuntu/ xenial main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.tencentyun.com/ubuntu/ xenial-security main restricted universe multiverse" >> /etc/apt/sources.list&& \
+    echo "deb http://mirrors.tencentyun.com/ubuntu/ xenial-updates main restricted universe multiverse" >> /etc/apt/sources.list&& \
+    echo "deb-src http://mirrors.tencentyun.com/ubuntu/ xenial main restricted universe multiverse" >> /etc/apt/sources.list&& \
+    echo "deb-src http://mirrors.tencentyun.com/ubuntu/ xenial-security main restricted universe multiverse" >> /etc/apt/sources.list
 
 RUN apt-get update && \
     apt-get upgrade -y && \
