@@ -1,4 +1,4 @@
-package polis
+package concretecoin
 
 import (
 	"encoding/json"

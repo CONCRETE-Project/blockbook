@@ -1,4 +1,4 @@
-package polis
+package concretecoin
 
 import (
 	"github.com/CONCRETE-Project/blockbook/bchain"
