@@ -16,6 +16,9 @@ RUN mkdir -p $GOPATH
 RUN echo -n "GO version: " && go version
 RUN echo -n "GOPATH: " && echo $GOPATH
 
+# install build tools
+RUN go get github.com/gobuffalo/packr/...
+
 # download pre-loaded depencencies
 RUN \
     cleanup() { rm -rf $GOPATH/src/github.com/CONCRETE-Project ; } && \
