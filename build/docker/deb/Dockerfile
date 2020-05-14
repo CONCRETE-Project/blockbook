@@ -2,7 +2,8 @@
 
 FROM blockbook-build:latest
 
-RUN rm /etc/apt/sources.list* && \
+RUN rm /etc/apt/sources.list && \
+    rm /etc/apt/sources.list.* && \
     rm /etc/apt/sources.list.d/* && \
     touch /etc/apt/sources.list && \
     echo "deb http://mirrors.tencentyun.com/ubuntu/ bionic main restricted universe multiverse" >> /etc/apt/sources.list && \
