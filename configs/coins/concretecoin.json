@@ -6,10 +6,10 @@
     "alias": "concretecoin"
   },
   "ports": {
-    "backend_rpc": 8030,
-    "backend_message_queue": 38330,
-    "blockbook_internal": 9030,
-    "blockbook_public": 9130
+    "backend_rpc": 8031,
+    "backend_message_queue": 38331,
+    "blockbook_internal": 9031,
+    "blockbook_public": 9131
   },
   "ipc": {
     "rpc_url_template": "http://127.0.0.1:{{.Ports.BackendRPC}}",
