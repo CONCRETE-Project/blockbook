@@ -17,7 +17,7 @@ RUN echo -n "GO version: " && go version
 RUN echo -n "GOPATH: " && echo $GOPATH
 
 # install build tools
-RUN go get github.com/gobuffalo/packr/...
+RUN go get github.com/gobuffalo/packr/v2/...
 
 # download pre-loaded depencencies
 RUN \
