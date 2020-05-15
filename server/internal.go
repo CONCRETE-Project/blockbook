@@ -3,7 +3,6 @@ package server
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/CONCRETE-Project/blockbook/api"
@@ -63,12 +62,8 @@ func NewInternalServer(binding, certFiles string, db *db.RocksDB, chain bchain.B
 
 // Run starts the server
 func (s *InternalServer) Run() error {
-	if s.certFiles == "" {
-		glog.Info("internal server: starting to listen on http://", s.https.Addr)
-		return s.https.ListenAndServe()
-	}
-	glog.Info("internal server: starting to listen on https://", s.https.Addr)
-	return s.https.ListenAndServeTLS(fmt.Sprint(s.certFiles, ".crt"), fmt.Sprint(s.certFiles, ".key"))
+	glog.Info("internal server: starting to listen on http://", s.https.Addr)
+	return s.https.ListenAndServe()
 }
 
 // Close closes the server

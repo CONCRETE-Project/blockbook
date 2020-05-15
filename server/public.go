@@ -116,12 +116,8 @@ func NewPublicServer(binding string, certFiles string, db *db.RocksDB, chain bch
 
 // Run starts the server
 func (s *PublicServer) Run() error {
-	if s.certFiles == "" {
-		glog.Info("public server: starting to listen on http://", s.https.Addr)
-		return s.https.ListenAndServe()
-	}
-	glog.Info("public server starting to listen on https://", s.https.Addr)
-	return s.https.ListenAndServeTLS(fmt.Sprint(s.certFiles, ".crt"), fmt.Sprint(s.certFiles, ".key"))
+	glog.Info("public server: starting to listen on http://", s.https.Addr)
+	return s.https.ListenAndServe()
 }
 
 // ConnectFullPublicInterface enables complete public functionality
