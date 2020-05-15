@@ -79,10 +79,7 @@ func NewPublicServer(binding string, certFiles string, db *db.RocksDB, chain bch
 
 	addr, path := splitBinding(binding)
 	serveMux := http.NewServeMux()
-	c := cors.New(cors.Options{
-		AllowedOrigins: []string{"*"},
-	})
-	handler := c.Handler(serveMux)
+	handler := cors.Default().Handler(serveMux)
 	https := &http.Server{
 		Addr:    addr,
 		Handler: handler,
