@@ -21,7 +21,6 @@ import (
 	"github.com/CONCRETE-Project/blockbook/bchain"
 	"github.com/CONCRETE-Project/blockbook/common"
 	"github.com/CONCRETE-Project/blockbook/db"
-	"github.com/rs/cors"
 
 	"github.com/golang/glog"
 )
@@ -79,12 +78,10 @@ func NewPublicServer(binding string, certFiles string, db *db.RocksDB, chain bch
 
 	addr, path := splitBinding(binding)
 	serveMux := http.NewServeMux()
-	handler := cors.Default().Handler(serveMux)
 	https := &http.Server{
 		Addr:    addr,
-		Handler: handler,
+		Handler: serveMux,
 	}
-	
 
 	s := &PublicServer{
 		binding:          binding,

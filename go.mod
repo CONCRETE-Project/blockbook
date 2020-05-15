@@ -23,7 +23,6 @@ require (
 	github.com/martinboehm/golang-socketio v0.0.0-20180414165752-f60b0a8befde
 	github.com/pebbe/zmq4 v1.2.0
 	github.com/prometheus/client_golang v1.6.0
-	github.com/rs/cors v0.0.0-20160617231935-a62a804a8a00
 	github.com/tecbot/gorocksdb v0.0.0-20191217155057-f0fad39f321c
 	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22 // indirect
