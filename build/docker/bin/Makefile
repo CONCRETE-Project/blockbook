@@ -4,8 +4,8 @@ VERSION ?= devel
 GITCOMMIT = $(shell cd /src && git describe --always --dirty)
 BUILDTIME = $(shell date --iso-8601=seconds)
 LDFLAGS := -X github.com/CONCRETE-Project/blockbook/common.version=$(VERSION) -X github.com/CONCRETE-Project/blockbook/common.gitcommit=$(GITCOMMIT) -X github.com/CONCRETE-Project/blockbook/common.buildtime=$(BUILDTIME)
-BLOCKBOOK_BASE := $(GOPATH)/src/github.com/grupokindynos
-BLOCKBOOK_SRC := $(BLOCKBOOK_BASE)/coins-explorer
+BLOCKBOOK_BASE := $(GOPATH)/src/github.com/CONCRETE-Project
+BLOCKBOOK_SRC := $(BLOCKBOOK_BASE)/blockbook
 ARGS ?=
 
 all: build tools
