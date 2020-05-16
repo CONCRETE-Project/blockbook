@@ -109,18 +109,18 @@ h3 {
     margin: 0;
     padding-bottom: 0;
     padding-top: 0;
-    background-color: #17A47E;
+    background-color: #009CB6;
     border: 0;
 }
 
-.bg-polispay {
-    background-color: #17A47E;
+.bg-concretepay {
+    background-color: #009CB6;
     padding-top: 3px;
     padding-bottom: 2px;
     z-index: 2;
 }
 
-.bg-polispay .navbar-brand {
+.bg-concretepay .navbar-brand {
     color: rgba(255, 255, 255);
     font-weight: bold;
     font-size: 19px;
@@ -131,7 +131,7 @@ h3 {
     .navbar {
         font-size: 14px;
     }
-    .bg-polispay .navbar-brand {
+    .bg-concretepay .navbar-brand {
         font-weight: normal;
         font-size: 14px;
     }
@@ -152,7 +152,7 @@ h3 {
 }
 
 .alert-data {
-    color: #383d4   1;
+    color: #383d41;
     background-color: #f4f4f4;
     border-color: #d6d8db;
     padding: 15px;

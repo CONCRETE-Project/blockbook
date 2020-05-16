@@ -80,7 +80,7 @@ Response:
     "mempoolSize": 17348,
     "decimals": 8,
     "dbSize": 191887866502,
-    "about": "Blockbook - blockchain indexer created by Trezor and used for PolisPay Wallet https://polispay.com"
+    "about": "Blockbook - blockchain indexer created by Trezor and used for ConcretePay Wallet"
   },
   "backend": {
     "chain": "main",

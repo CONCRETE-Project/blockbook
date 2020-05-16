@@ -20,7 +20,7 @@
   },
   "backend": {
     "package_name": "backend-bitcoin",
-    "package_revision": "polispay",
+    "package_revision": "concretepay",
     "system_user": "bitcoin",
     "version": "0.19.0.1",
     "binary_url": "https://bitcoin.org/bin/bitcoin-core-0.19.0.1/bitcoin-0.19.0.1-x86_64-linux-gnu.tar.gz",

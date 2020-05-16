@@ -19,7 +19,7 @@
   },
   "backend": {
     "package_name": "backend-ethereum",
-    "package_revision": "polispay",
+    "package_revision": "concretepay",
     "system_user": "ethereum",
     "version": "1.9.11-6a62fe39",
     "binary_url": "https://gethstore.blob.core.windows.net/builds/geth-linux-amd64-1.9.11-6a62fe39.tar.gz",
