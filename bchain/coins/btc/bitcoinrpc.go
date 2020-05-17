@@ -390,6 +390,56 @@ type ResSendRawTransaction struct {
 	Result string           `json:"result"`
 }
 
+// getnewstakingaddress
+
+type ResGetNewStakingAddres struct {
+	Error  *bchain.RPCError `json:"error"`
+	Result string           `json:"result"`
+}
+type CmdGetNewStakingAddress struct {
+	Method string   `json:"method"`
+	Params []string `json:"params"`
+}
+
+// delegator add
+
+type ResDelegatorAdd struct {
+	Error  *bchain.RPCError `json:"error"`
+	Result bool             `json:"result"`
+}
+type CmdDelegatorAdd struct {
+	Method string `json:"method"`
+	Params string `json:"params"`
+}
+
+// delegator remove
+
+type ResDelegatorRemove struct {
+	Error  *bchain.RPCError `json:"error"`
+	Result bool             `json:"result"`
+}
+type CmdDelegatorRemove struct {
+	Method string `json:"method"`
+	Params string `json:"params"`
+}
+
+// delegator add
+
+type ResDelegatorNew struct {
+	Error  *bchain.RPCError    `json:"error"`
+	Result bchain.NewDelegatorResponse `json:"result"`
+}
+
+type CmdDelegatorNew struct {
+	Method string `json:"method"`
+	Params struct {
+		StakerAddr   string
+		Amount       uint64
+		OwnerAddr    string
+		ExteralOwner bool
+	} `json:"params"`
+}
+
 // getmempoolentry
 
 type CmdGetMempoolEntry struct {
@@ -832,6 +882,70 @@ func (b *BitcoinRPC) SendRawTransaction(tx string) (string, error) {
 	}
 	if res.Error != nil {
 		return "", res.Error
+	}
+	return res.Result, nil
+}
+
+// GetStakingAddress gets a new stake address to delegate a stake
+func (b *BitcoinRPC) GetStakeAddress() (string, error) {
+	glog.V(1).Info("rpc: getnewstakingaddress")
+	var res ResGetNewStakingAddres
+	req := CmdGetNewStakingAddress{Method: "getnewstakingaddress"}
+	err := b.Call(&req, &res)
+	if err != nil {
+		return "", err
+	}
+	if res.Error != nil {
+		return "", res.Error
+	}
+	return res.Result, nil
+}
+
+// DelegatorAdd whitelists a delegator
+func (b *BitcoinRPC) DelegatorAdd(addr string) (bool, error) {
+	glog.V(1).Info("rpc: delegatoradd")
+	var res ResDelegatorAdd
+	req := CmdDelegatorAdd{Method: "delegatoradd", Params: addr}
+	err := b.Call(&req, &res)
+	if err != nil {
+		return false, err
+	}
+	if res.Error != nil {
+		return false, res.Error
+	}
+	return res.Result, nil
+}
+
+// DelegatorRemove removes a delegator from the whitelis
+func (b *BitcoinRPC) DelegatorRemove(addr string) (bool, error) {
+	glog.V(1).Info("rpc: delegatorremove")
+	var res ResDelegatorRemove
+	req := CmdDelegatorRemove{Method: "delegatorremove"}
+	err := b.Call(&req, &res)
+	if err != nil {
+		return false, err
+	}
+	if res.Error != nil {
+		return false, res.Error
+	}
+	return res.Result, nil
+}
+
+// GetStakingAddress gets a new stake address to delegate a stake
+func (b *BitcoinRPC) DelegatorNew(data bchain.NewDelegatorData) (bchain.NewDelegatorResponse, error) {
+	glog.V(1).Info("rpc: delegatestake")
+	var res ResDelegatorNew
+	req := CmdDelegatorNew{Method: "delegatestake"}
+	req.Params.StakerAddr = data.StakerAddress
+	req.Params.Amount = data.Amount
+	req.Params.OwnerAddr = data.OwnerAddress
+	req.Params.ExteralOwner = true
+	err := b.Call(&req, &res)
+	if err != nil {
+		return bchain.NewDelegatorResponse{}, err
+	}
+	if res.Error != nil {
+		return bchain.NewDelegatorResponse{}, res.Error
 	}
 	return res.Result, nil
 }

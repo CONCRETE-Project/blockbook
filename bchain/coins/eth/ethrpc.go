@@ -316,7 +316,27 @@ func (b *EthereumRPC) GetCoinName() string {
 	return b.ChainConfig.CoinName
 }
 
-// GetSubversion returns empty string, ethereum does not have subversion
+// GetStakeAddress returns empty string, ethereum does not have subversion
+func (b *EthereumRPC) GetStakeAddress() (string, error) {
+	return "", nil
+}
+
+// GetStakeAddress returns empty string, ethereum does not have subversion
+func (b *EthereumRPC) DelegatorAdd(addr string) (bool, error) {
+	return false, nil
+}
+
+// GetStakeAddress returns empty string, ethereum does not have subversion
+func (b *EthereumRPC) DelegatorRemove(addr string) (bool, error) {
+	return false, nil
+}
+
+// GetStakeAddress returns empty string, ethereum does not have subversion
+func (b *EthereumRPC) DelegatorNew(data bchain.NewDelegatorData) (bchain.NewDelegatorResponse, error) {
+	return bchain.NewDelegatorResponse{}, nil
+}
+
+// GetStakingAddress returns empty string, ethereum does not have subversion
 func (b *EthereumRPC) GetSubversion() string {
 	return ""
 }

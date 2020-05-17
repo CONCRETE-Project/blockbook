@@ -151,6 +151,20 @@ type ChainInfo struct {
 	Warnings        string  `json:"warnings"`
 }
 
+// NewDelegator is the returned data from starting a delegation contract
+type NewDelegatorResponse struct {
+	OwnerAddress  string `json:"owner_address"`
+	StakerAddress string `json:"staker_address"`
+	TxID          string `json:"txid"`
+}
+
+// NewDelegator is the returned data from starting a delegation contract
+type NewDelegatorData struct {
+	OwnerAddress  string `json:"owner_address"`
+	StakerAddress string `json:"staker_address"`
+	Amount        uint64  `json:"amount"`
+}
+
 // RPCError defines rpc error returned by backend
 type RPCError struct {
 	Code    int    `json:"code"`
@@ -244,6 +258,12 @@ type BlockChain interface {
 	EstimateFee(blocks int) (big.Int, error)
 	SendRawTransaction(tx string) (string, error)
 	GetMempoolEntry(txid string) (*MempoolEntry, error)
+	// stake methods
+	GetStakeAddress() (string, error)
+	DelegatorAdd(addr string) (bool, error)
+	DelegatorRemove(addr string) (bool, error)
+	DelegatorNew(data NewDelegatorData) (NewDelegatorResponse, error)
+
 	// parser
 	GetChainParser() BlockChainParser
 	// EthereumType specific

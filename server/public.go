@@ -184,6 +184,12 @@ func (s *PublicServer) ConnectFullPublicInterface() {
 	serveMux.HandleFunc(path+"api/v2/balancehistory/", s.jsonHandler(s.apiBalanceHistory, apiDefault))
 	serveMux.HandleFunc(path+"api/v2/tickers/", s.jsonHandler(s.apiTickers, apiV2))
 	serveMux.HandleFunc(path+"api/v2/tickers-list/", s.jsonHandler(s.apiTickersList, apiV2))
+	// staking functions
+	serveMux.HandleFunc(path+"api/v2/stake-addr/", s.jsonHandler(s.apiGetStakeAddress, apiV2))
+	serveMux.HandleFunc(path+"api/v2/delegator/add", s.jsonHandler(s.apiGetStakeAddress, apiV2))
+	serveMux.HandleFunc(path+"api/v2/delegator/remove", s.jsonHandler(s.apiGetStakeAddress, apiV2))
+	serveMux.HandleFunc(path+"api/v2/delegator/new", s.jsonHandler(s.apiGetStakeAddress, apiV2))
+
 	// socket.io interface
 	serveMux.Handle(path+"socket.io/", s.socketio.GetHandler())
 	// websocket interface
@@ -1141,6 +1147,82 @@ func (s *PublicServer) apiSendTx(r *http.Request, apiVersion int) (interface{}, 
 		return res, nil
 	}
 	return nil, api.NewAPIError("Missing tx blob", true)
+}
+
+type Delegator struct {
+	Address string `json:"address"`
+}
+
+// apiGetStakeAddress adds a delegator address to the node
+func (s *PublicServer) apiDelegatorAdd(r *http.Request, apiVersion int) (interface{}, error) {
+	if r.Method == http.MethodGet {
+		return nil, api.NewAPIError("missing information", true)
+	}
+	data, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		return nil, err
+	}
+	var dataUnmarshal Delegator
+	err = json.Unmarshal(data, &dataUnmarshal)
+	if err != nil {
+		return nil, err
+	}
+	success, err := s.chain.DelegatorAdd(dataUnmarshal.Address)
+	if err != nil {
+		return nil, err
+	}
+	return success, err
+}
+
+// apiGetStakeAddress removes a delegation to the node
+func (s *PublicServer) apiDelegatorRemove(r *http.Request, apiVersion int) (interface{}, error) {
+	if r.Method == http.MethodGet {
+		return nil, api.NewAPIError("missing information", true)
+	}
+	data, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		return nil, err
+	}
+	var dataUnmarshal Delegator
+	err = json.Unmarshal(data, &dataUnmarshal)
+	if err != nil {
+		return nil, err
+	}
+	success, err := s.chain.DelegatorRemove(dataUnmarshal.Address)
+	if err != nil {
+		return nil, err
+	}
+	return success, err
+}
+
+// apiDelegatorNew starts a stake delegation
+func (s *PublicServer) apiDelegatorNew(r *http.Request, apiVersion int) (interface{}, error) {
+	if r.Method == http.MethodGet {
+		return nil, api.NewAPIError("missing information", true)
+	}
+	data, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		return nil, err
+	}
+	var dataUnmarshal bchain.NewDelegatorData
+	err = json.Unmarshal(data, &dataUnmarshal)
+	if err != nil {
+		return nil, err
+	}
+	res, err := s.chain.DelegatorNew(dataUnmarshal)
+	if err != nil {
+		return nil, err
+	}
+	return res, err
+}
+
+// apiGetStakeAddress returns a new stake address
+func (s *PublicServer) apiGetStakeAddress(r *http.Request, apiVersion int) (interface{}, error) {
+	addr, err := s.chain.GetStakeAddress()
+	if err != nil {
+		return nil, err
+	}
+	return addr, err
 }
 
 // apiTickersList returns a list of available FiatRates currencies
