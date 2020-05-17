@@ -158,11 +158,16 @@ type NewDelegatorResponse struct {
 	TxID          string `json:"txid"`
 }
 
+// DelegateWhitelist is the returned data from starting a delegation contract
+type DelegateWhitelist struct {
+	Success bool `json:"success"`
+}
+
 // NewDelegator is the returned data from starting a delegation contract
 type NewDelegatorData struct {
 	OwnerAddress  string `json:"owner_address"`
 	StakerAddress string `json:"staker_address"`
-	Amount        uint64  `json:"amount"`
+	Amount        uint64 `json:"amount"`
 }
 
 // RPCError defines rpc error returned by backend
@@ -260,8 +265,8 @@ type BlockChain interface {
 	GetMempoolEntry(txid string) (*MempoolEntry, error)
 	// stake methods
 	GetStakeAddress() (string, error)
-	DelegatorAdd(addr string) (bool, error)
-	DelegatorRemove(addr string) (bool, error)
+	DelegatorAdd(addr string) (DelegateWhitelist, error)
+	DelegatorRemove(addr string) (DelegateWhitelist, error)
 	DelegatorNew(data NewDelegatorData) (NewDelegatorResponse, error)
 
 	// parser

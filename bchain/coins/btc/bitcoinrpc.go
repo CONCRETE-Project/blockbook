@@ -409,7 +409,9 @@ type ResDelegatorAdd struct {
 }
 type CmdDelegatorAdd struct {
 	Method string `json:"method"`
-	Params string `json:"params"`
+	Params struct {
+		Address string `json:"address"`
+	} `json:"params"`
 }
 
 // delegator remove
@@ -420,13 +422,15 @@ type ResDelegatorRemove struct {
 }
 type CmdDelegatorRemove struct {
 	Method string `json:"method"`
-	Params string `json:"params"`
+	Params struct {
+		Address string `json:"address"`
+	} `json:"params"`
 }
 
 // delegator add
 
 type ResDelegatorNew struct {
-	Error  *bchain.RPCError    `json:"error"`
+	Error  *bchain.RPCError            `json:"error"`
 	Result bchain.NewDelegatorResponse `json:"result"`
 }
 
@@ -902,33 +906,35 @@ func (b *BitcoinRPC) GetStakeAddress() (string, error) {
 }
 
 // DelegatorAdd whitelists a delegator
-func (b *BitcoinRPC) DelegatorAdd(addr string) (bool, error) {
+func (b *BitcoinRPC) DelegatorAdd(addr string) (bchain.DelegateWhitelist, error) {
 	glog.V(1).Info("rpc: delegatoradd")
 	var res ResDelegatorAdd
-	req := CmdDelegatorAdd{Method: "delegatoradd", Params: addr}
+	req := CmdDelegatorAdd{Method: "delegatoradd"}
+	req.Params.Address = addr
 	err := b.Call(&req, &res)
 	if err != nil {
-		return false, err
+		return bchain.DelegateWhitelist{}, err
 	}
 	if res.Error != nil {
-		return false, res.Error
+		return bchain.DelegateWhitelist{}, res.Error
 	}
-	return res.Result, nil
+	return bchain.DelegateWhitelist{Success: res.Result}, nil
 }
 
 // DelegatorRemove removes a delegator from the whitelis
-func (b *BitcoinRPC) DelegatorRemove(addr string) (bool, error) {
+func (b *BitcoinRPC) DelegatorRemove(addr string) (bchain.DelegateWhitelist, error) {
 	glog.V(1).Info("rpc: delegatorremove")
 	var res ResDelegatorRemove
 	req := CmdDelegatorRemove{Method: "delegatorremove"}
+	req.Params.Address = addr
 	err := b.Call(&req, &res)
 	if err != nil {
-		return false, err
+		return bchain.DelegateWhitelist{}, err
 	}
 	if res.Error != nil {
-		return false, res.Error
+		return bchain.DelegateWhitelist{}, res.Error
 	}
-	return res.Result, nil
+	return bchain.DelegateWhitelist{Success: res.Result}, nil
 }
 
 // GetStakingAddress gets a new stake address to delegate a stake

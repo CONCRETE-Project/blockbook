@@ -186,9 +186,9 @@ func (s *PublicServer) ConnectFullPublicInterface() {
 	serveMux.HandleFunc(path+"api/v2/tickers-list/", s.jsonHandler(s.apiTickersList, apiV2))
 	// staking functions
 	serveMux.HandleFunc(path+"api/v2/stake-addr/", s.jsonHandler(s.apiGetStakeAddress, apiV2))
-	serveMux.HandleFunc(path+"api/v2/delegator/add", s.jsonHandler(s.apiGetStakeAddress, apiV2))
-	serveMux.HandleFunc(path+"api/v2/delegator/remove", s.jsonHandler(s.apiGetStakeAddress, apiV2))
-	serveMux.HandleFunc(path+"api/v2/delegator/new", s.jsonHandler(s.apiGetStakeAddress, apiV2))
+	serveMux.HandleFunc(path+"api/v2/delegator/add", s.jsonHandler(s.apiDelegatorAdd, apiV2))
+	serveMux.HandleFunc(path+"api/v2/delegator/remove", s.jsonHandler(s.apiDelegatorRemove, apiV2))
+	serveMux.HandleFunc(path+"api/v2/delegator/new", s.jsonHandler(s.apiDelegatorNew, apiV2))
 
 	// socket.io interface
 	serveMux.Handle(path+"socket.io/", s.socketio.GetHandler())

@@ -197,12 +197,12 @@ func (c *blockChainWithMetrics) GetStakeAddress() (v string, err error) {
 	return c.b.GetStakeAddress()
 }
 
-func (c *blockChainWithMetrics) DelegatorAdd(addr string) (v bool, err error) {
+func (c *blockChainWithMetrics) DelegatorAdd(addr string) (v bchain.DelegateWhitelist, err error) {
 	defer func(s time.Time) { c.observeRPCLatency("DelegatorAdd", s, err) }(time.Now())
 	return c.b.DelegatorAdd(addr)
 }
 
-func (c *blockChainWithMetrics) DelegatorRemove(addr string) (v bool, err error) {
+func (c *blockChainWithMetrics) DelegatorRemove(addr string) (v bchain.DelegateWhitelist, err error) {
 	defer func(s time.Time) { c.observeRPCLatency("DelegatorRemove", s, err) }(time.Now())
 	return c.b.DelegatorRemove(addr)
 }

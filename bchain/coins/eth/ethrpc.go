@@ -322,13 +322,13 @@ func (b *EthereumRPC) GetStakeAddress() (string, error) {
 }
 
 // GetStakeAddress returns empty string, ethereum does not have subversion
-func (b *EthereumRPC) DelegatorAdd(addr string) (bool, error) {
-	return false, nil
+func (b *EthereumRPC) DelegatorAdd(addr string) (bchain.DelegateWhitelist, error) {
+	return bchain.DelegateWhitelist{}, nil
 }
 
 // GetStakeAddress returns empty string, ethereum does not have subversion
-func (b *EthereumRPC) DelegatorRemove(addr string) (bool, error) {
-	return false, nil
+func (b *EthereumRPC) DelegatorRemove(addr string) (bchain.DelegateWhitelist, error) {
+	return bchain.DelegateWhitelist{}, nil
 }
 
 // GetStakeAddress returns empty string, ethereum does not have subversion
