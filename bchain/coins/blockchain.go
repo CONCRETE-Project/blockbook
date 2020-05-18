@@ -192,26 +192,6 @@ func (c *blockChainWithMetrics) SendRawTransaction(tx string) (v string, err err
 	return c.b.SendRawTransaction(tx)
 }
 
-func (c *blockChainWithMetrics) GetStakeAddress() (v string, err error) {
-	defer func(s time.Time) { c.observeRPCLatency("GetStakeAddress", s, err) }(time.Now())
-	return c.b.GetStakeAddress()
-}
-
-func (c *blockChainWithMetrics) DelegatorAdd(addr string) (v bchain.DelegateWhitelist, err error) {
-	defer func(s time.Time) { c.observeRPCLatency("DelegatorAdd", s, err) }(time.Now())
-	return c.b.DelegatorAdd(addr)
-}
-
-func (c *blockChainWithMetrics) DelegatorRemove(addr string) (v bchain.DelegateWhitelist, err error) {
-	defer func(s time.Time) { c.observeRPCLatency("DelegatorRemove", s, err) }(time.Now())
-	return c.b.DelegatorRemove(addr)
-}
-
-func (c *blockChainWithMetrics) DelegatorNew(data bchain.NewDelegatorData) (v bchain.NewDelegatorResponse, err error) {
-	defer func(s time.Time) { c.observeRPCLatency("DelegatorNew", s, err) }(time.Now())
-	return c.b.DelegatorNew(data)
-}
-
 func (c *blockChainWithMetrics) GetMempoolEntry(txid string) (v *bchain.MempoolEntry, err error) {
 	defer func(s time.Time) { c.observeRPCLatency("GetMempoolEntry", s, err) }(time.Now())
 	return c.b.GetMempoolEntry(txid)
