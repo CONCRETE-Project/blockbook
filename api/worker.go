@@ -1036,17 +1036,19 @@ func (w *Worker) getAddrDescUtxo(addrDesc bchain.AddressDescriptor, ba *db.AddrB
 								if len(bchainTx.Vin) == 1 && len(bchainTx.Vin[0].Coinbase) > 0 {
 									coinbase = true
 								}
-								stakeContract := false 
+								stakeContract := false
+								stakeAddr := ""
 								if len(bchainTx.Vout[i].ScriptPubKey.Addresses) > 1 {
 									for _, addrStr := range bchainTx.Vout[i].ScriptPubKey.Addresses {
-										prefix :=  addrStr[0:1]
+										prefix := addrStr[0:1]
 										if prefix == "S" {
 											stakeContract = true
+											stakeAddr = addrStr
 										}
 									}
 									stakeContract = true
 								}
-							
+
 								utxos = append(utxos, Utxo{
 									Txid:          bchainTx.Txid,
 									Vout:          int32(i),
@@ -1054,6 +1056,7 @@ func (w *Worker) getAddrDescUtxo(addrDesc bchain.AddressDescriptor, ba *db.AddrB
 									Locktime:      bchainTx.LockTime,
 									Coinbase:      coinbase,
 									StakeContract: stakeContract,
+									StakeAddress:  stakeAddr,
 								})
 								inMempool[bchainTx.Txid] = struct{}{}
 							}
@@ -1102,6 +1105,7 @@ func (w *Worker) getAddrDescUtxo(addrDesc bchain.AddressDescriptor, ba *db.AddrB
 						}
 					}
 					stakeContract := false
+					stakeAddr := ""
 					ta, err := w.db.GetTxAddresses(txid)
 					if err != nil {
 						return nil, err
@@ -1112,13 +1116,14 @@ func (w *Worker) getAddrDescUtxo(addrDesc bchain.AddressDescriptor, ba *db.AddrB
 					}
 					if len(addr) > 1 {
 						for _, addrStr := range addr {
-							prefix :=  addrStr[0:1]
+							prefix := addrStr[0:1]
 							if prefix == "S" {
 								stakeContract = true
+								stakeAddr = addrStr
 							}
 						}
 					}
-					
+
 					_, e = inMempool[txid]
 					if !e {
 						utxos = append(utxos, Utxo{
@@ -1129,6 +1134,7 @@ func (w *Worker) getAddrDescUtxo(addrDesc bchain.AddressDescriptor, ba *db.AddrB
 							Confirmations: confirmations,
 							Coinbase:      coinbase,
 							StakeContract: stakeContract,
+							StakeAddress:  stakeAddr,
 						})
 					}
 				}
