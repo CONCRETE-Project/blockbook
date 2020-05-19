@@ -1036,12 +1036,24 @@ func (w *Worker) getAddrDescUtxo(addrDesc bchain.AddressDescriptor, ba *db.AddrB
 								if len(bchainTx.Vin) == 1 && len(bchainTx.Vin[0].Coinbase) > 0 {
 									coinbase = true
 								}
+								stakeContract := false 
+								if len(bchainTx.Vout[i].ScriptPubKey.Addresses) > 1 {
+									for _, addrStr := range bchainTx.Vout[i].ScriptPubKey.Addresses {
+										prefix :=  addrStr[0:1]
+										if prefix == "S" {
+											stakeContract = true
+										}
+									}
+									stakeContract = true
+								}
+							
 								utxos = append(utxos, Utxo{
-									Txid:      bchainTx.Txid,
-									Vout:      int32(i),
-									AmountSat: (*Amount)(&vout.ValueSat),
-									Locktime:  bchainTx.LockTime,
-									Coinbase:  coinbase,
+									Txid:          bchainTx.Txid,
+									Vout:          int32(i),
+									AmountSat:     (*Amount)(&vout.ValueSat),
+									Locktime:      bchainTx.LockTime,
+									Coinbase:      coinbase,
+									StakeContract: stakeContract,
 								})
 								inMempool[bchainTx.Txid] = struct{}{}
 							}
@@ -1089,6 +1101,24 @@ func (w *Worker) getAddrDescUtxo(addrDesc bchain.AddressDescriptor, ba *db.AddrB
 							coinbase = true
 						}
 					}
+					stakeContract := false
+					ta, err := w.db.GetTxAddresses(txid)
+					if err != nil {
+						return nil, err
+					}
+					addr, _, err := ta.Outputs[utxo.Vout].Addresses(w.chainParser)
+					if err != nil {
+						return nil, err
+					}
+					if len(addr) > 1 {
+						for _, addrStr := range addr {
+							prefix :=  addrStr[0:1]
+							if prefix == "S" {
+								stakeContract = true
+							}
+						}
+					}
+					
 					_, e = inMempool[txid]
 					if !e {
 						utxos = append(utxos, Utxo{
@@ -1098,6 +1128,7 @@ func (w *Worker) getAddrDescUtxo(addrDesc bchain.AddressDescriptor, ba *db.AddrB
 							Height:        int(utxo.Height),
 							Confirmations: confirmations,
 							Coinbase:      coinbase,
+							StakeContract: stakeContract,
 						})
 					}
 				}
